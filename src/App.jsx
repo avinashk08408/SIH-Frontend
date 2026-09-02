@@ -43,17 +43,23 @@ export default function App() {
       container: graphRef.current,
       elements: graph,
       layout: {
-        name: 'cose',
-        animate: false,
-        fit: true,
-        padding: 34,
-        nodeRepulsion: 7800,
-        idealEdgeLength: 105,
-        edgeElasticity: 0.35,
-        gravity: 0.22,
-        numIter: 900,
-        randomize: true
-      },
+  name: 'cose',
+  animate: false,
+  randomize: true,
+
+  nodeRepulsion: 120000,
+  idealEdgeLength: 120,
+  edgeElasticity: 0.15,
+
+  nestingFactor: 0.8,
+  gravity: 0.15,
+
+  numIter: 2500,
+
+  tile: true,
+  tilingPaddingVertical: 80,
+  tilingPaddingHorizontal: 80
+}
       minZoom: 0.12,
       maxZoom: 5,
       wheelSensitivity: 0.18,
