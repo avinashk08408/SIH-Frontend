@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
 
-export async function exportReportPdf({ sourceWallet, stats, attribution }) {
+export async function exportReportPdf({ sourceWallet, stats, attribution, clusterStats, completeness }) {
   const pdf = new jsPDF({ unit:'pt', format:'a4' });
   const left = 42;
   let y = 54;
@@ -35,7 +35,10 @@ export async function exportReportPdf({ sourceWallet, stats, attribution }) {
     ['Transactions', String(stats.transactions)],
     ['Flagged wallets', String(stats.flagged)],
     ['VASP matches', String(stats.vasp)],
-    ['Trace depth', String(stats.depth)],
+    ['Linked clusters', clusterStats ? `${clusterStats.linkedClusterCount} (${clusterStats.linkedWalletCount} wallets)` : '—'],
+    ['Trace depth', completeness
+      ? `reached ${completeness.depthReached ?? '—'} of max ${completeness.configuredMaxDepth ?? '—'}${completeness.truncated ? ` (truncated: ${completeness.truncationReasons.join(', ') || 'unknown'})` : ''}`
+      : String(stats.depth)],
     ['Risk score', 'Pending risk-engine output']
   ];
 
